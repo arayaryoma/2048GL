@@ -3,7 +3,7 @@
 #include<time.h>
 #include<stdlib.h>
 
-double x=-0.8,y=-0.8;
+double x,y;
 int map[3][3];
 double pr_x,pr_y;
 void display( void )
@@ -36,10 +36,10 @@ void display( void )
   glEnd();
   glColor3f(0.87,0.8,0.01);
   glBegin(GL_POLYGON);
-  glVertex2f(pr_x+0.01,pr_y+0.01);
-  glVertex2f(pr_x+0.39,pr_y+0.01);
-  glVertex2f(pr_x+0.39,pr_y+0.39);
-  glVertex2f(pr_x+0.01,pr_y+0.39);
+  glVertex2f(x+0.01,y+0.01);
+  glVertex2f(x+0.39,y+0.01);
+  glVertex2f(x+0.39,y+0.39);
+  glVertex2f(x+0.01,y+0.39);
   glEnd();
 
   
@@ -80,16 +80,16 @@ static void timer(int dummy){
 void keys(unsigned char key ,int dummy1,int dummy2){
   switch(key){
     case 'k':
-      y+=0.4;
+      y=0.4;
       break;
     case 'j':
-      y-=0.4;
+      y=-0.8;
       break;
     case 'h':
-      x-=0.4;
+      x=-0.8;
       break;
     case 'l':
-      x+=0.4;
+      x=0.4;
       break;
   }
 
@@ -100,8 +100,8 @@ void keys(unsigned char key ,int dummy1,int dummy2){
 int main( int argc, char** argv )
 {
   srand( (unsigned)time(NULL));
-  pr_x=-0.8+(0.4*( rand()%4) );
-  pr_y=-0.8+(0.4*( rand()%4) );
+  x=-0.8+(0.4*( rand()%4) );
+  y=-0.8+(0.4*( rand()%4) );
   
   glutInit( &argc, argv );
   glutInitDisplayMode( GLUT_RGBA );
