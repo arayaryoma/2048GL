@@ -6,9 +6,10 @@
 double x,y;
 int map[3][3];
 double pr_x,pr_y;
-void display( void )
+
+void frame( void )
 {
-  glClear( GL_COLOR_BUFFER_BIT );
+  //glClear( GL_COLOR_BUFFER_BIT );
   glColor3f(255,255,255);
   glBegin( GL_LINES );
   //frame 
@@ -34,17 +35,8 @@ void display( void )
   glVertex2d(-0.8,0.4);
   glVertex2d(0.8,0.4);
   glEnd();
-  glColor3f(0.87,0.8,0.01);
-  glBegin(GL_POLYGON);
-  glVertex2f(x+0.01,y+0.01);
-  glVertex2f(x+0.39,y+0.01);
-  glVertex2f(x+0.39,y+0.39);
-  glVertex2f(x+0.01,y+0.39);
-  glEnd();
-
-  
   glFlush();
-}
+  }
 
 void resize( int w, int h )
 {
@@ -72,24 +64,36 @@ void init( void )
   glClearColor( 0.0, 0.0, 0.0, 1.0 );
 }
 
-static void timer(int dummy){
-  glutTimerFunc(5,timer,0);
-  glutPostRedisplay();
+void appearance(){
+  glClear( GL_COLOR_BUFFER_BIT );
+  glColor3f(0.87,0.8,0.01);
+  glBegin(GL_POLYGON);
+  glVertex2f(x+0.01,y+0.01);
+  glVertex2f(x+0.39,y+0.01);
+  glVertex2f(x+0.39,y+0.39);
+  glVertex2f(x+0.01,y+0.39);
+  glEnd();
+  glFlush();
+  frame();
 }
 
 void keys(unsigned char key ,int dummy1,int dummy2){
   switch(key){
     case 'k':
       y=0.4;
+      glutPostRedisplay();
       break;
     case 'j':
       y=-0.8;
+      glutPostRedisplay();
       break;
     case 'h':
       x=-0.8;
+      glutPostRedisplay();
       break;
     case 'l':
       x=0.4;
+      glutPostRedisplay();
       break;
   }
 
@@ -107,11 +111,12 @@ int main( int argc, char** argv )
   glutInitDisplayMode( GLUT_RGBA );
   glutInitWindowSize( 800, 800 );
   glutCreateWindow( argv[0] );
-  glutDisplayFunc( display);
-  glutReshapeFunc( resize );
-  timer(0);
-  init();
   glutKeyboardFunc(keys);
+  
+  glutDisplayFunc(appearance);
+  
+  glutReshapeFunc( resize );
+  init();
   glutMainLoop();
 
   return( 0 );
