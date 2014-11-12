@@ -65,35 +65,43 @@ void init( void )
 }
 
 void appearance(){
+  srand( (unsigned)time(NULL));
+  pr_x=-0.8+(0.4*( rand()%4) );
+  pr_y=-0.8+(0.4*( rand()%4) );
   glClear( GL_COLOR_BUFFER_BIT );
   glColor3f(0.87,0.8,0.01);
   glBegin(GL_POLYGON);
-  glVertex2f(x+0.01,y+0.01);
-  glVertex2f(x+0.39,y+0.01);
-  glVertex2f(x+0.39,y+0.39);
-  glVertex2f(x+0.01,y+0.39);
+  glVertex2f(pr_x+0.01,pr_y+0.01);
+  glVertex2f(pr_x+0.39,pr_y+0.01);
+  glVertex2f(pr_x+0.39,pr_y+0.39);
+  glVertex2f(pr_x+0.01,pr_y+0.39);
   glEnd();
+ frame();
   glFlush();
-  frame();
+  
+}
+
+void move(){
+
 }
 
 void keys(unsigned char key ,int dummy1,int dummy2){
   switch(key){
     case 'k':
       y=0.4;
-      glutPostRedisplay();
+      appearance();
       break;
     case 'j':
       y=-0.8;
-      glutPostRedisplay();
+      appearance();
       break;
     case 'h':
       x=-0.8;
-      glutPostRedisplay();
+      appearance();
       break;
     case 'l':
       x=0.4;
-      glutPostRedisplay();
+       appearance();
       break;
   }
 
@@ -103,9 +111,7 @@ void keys(unsigned char key ,int dummy1,int dummy2){
 
 int main( int argc, char** argv )
 {
-  srand( (unsigned)time(NULL));
-  x=-0.8+(0.4*( rand()%4) );
-  y=-0.8+(0.4*( rand()%4) );
+  
   
   glutInit( &argc, argv );
   glutInitDisplayMode( GLUT_RGBA );
