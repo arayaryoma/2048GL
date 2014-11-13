@@ -3,12 +3,21 @@
 #include<time.h>
 #include<stdlib.h>
 
+//prototype declarations
+
+void frame();
+void resize();
+void init();
+void appearance();
+void move();
+void keys(unsigned char key ,int dummy1,int dummy2);
+void substituteCordinates();
+
 int mapFlag[3][3];
 double x[4][4],y[4][4];
 int pr_x,pr_y;
 int elementNum=3;
-void frame( void )
-{
+void frame() {
   //glClear( GL_COLOR_BUFFER_BIT );
   glColor3f(255,255,255);
   glBegin( GL_LINES );
@@ -79,7 +88,7 @@ void appearance(){
     glEnd();
     glFlush();
   
-
+  
   frame();
   }
 
@@ -142,6 +151,7 @@ int main( int argc, char** argv )
   glutDisplayFunc(appearance);
   // glutPostRedisplay();
   //appearance();
+  
   glutReshapeFunc( resize );
   init();
   glutMainLoop();
