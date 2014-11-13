@@ -4,7 +4,7 @@
 #include<stdlib.h>
 
 int mapFlag[3][3];
-double x[3][3],y[3][3];
+double x[4][4],y[4][4];
 double pr_x,pr_y;
 int elementNum=3;
 void frame( void )
@@ -38,6 +38,7 @@ void frame( void )
   glFlush();
   }
 
+//resize window
 void resize( int w, int h )
 {
   double x=w, y=h;
@@ -69,12 +70,12 @@ void appearance(){
   for(i=1;i<=elementNum;i++){
     pr_x=-0.8+(0.4*( rand()%4) );
     pr_y=-0.8+(0.4*( rand()%4) );
-    printf("%f,%f\n",pr_x,pr_y);
+    //printf("%f,%f\n",pr_x,pr_y);
     glBegin(GL_POLYGON);
-    glVertex2f(pr_x+0.01,pr_y+0.01);
-    glVertex2f(pr_x+0.39,pr_y+0.01);
-    glVertex2f(pr_x+0.39,pr_y+0.39);
-    glVertex2f(pr_x+0.01,pr_y+0.39);
+    glVertex2f(x[0][0]+0.01,y[0][3]+0.01);
+    glVertex2f(x[0][0]+0.39,y[0][3]+0.01);
+    glVertex2f(x[0][0]+0.39,y[0][3]+0.39);
+    glVertex2f(x[0][0]+0.01,y[0][3]+0.39);
     glEnd();
     glFlush();
   }
@@ -86,10 +87,10 @@ void move(){
 glClear( GL_COLOR_BUFFER_BIT );
   glColor3f(0.87,0.8,0.01);
   glBegin(GL_POLYGON);
-  glVertex2f(x+0.01,y+0.01);
-  glVertex2f(x+0.39,y+0.01);
-  glVertex2f(x+0.39,y+0.39);
-  glVertex2f(x+0.01,y+0.39);
+//  glVertex2f(x+0.01,y+0.01);
+//  glVertex2f(x+0.39,y+0.01);
+//  glVertex2f(x+0.39,y+0.39);
+//  glVertex2f(x+0.01,y+0.39);
   glEnd();
   frame();
   appearance();
@@ -99,30 +100,40 @@ glClear( GL_COLOR_BUFFER_BIT );
 
 void keys(unsigned char key ,int dummy1,int dummy2){
   switch(key){
-    case 'k':
-      y=0.4;
-      move();
-      break;
-    case 'j':
-      y=-0.8;
-      move();
-      break;
-    case 'h':
-      x=-0.8;
-      move();
-      break;
-    case 'l':
-      x=0.4;
-       move();
-      break;
+//    case 'k':
+//      y=0.4;
+//      move();
+//      break;
+//    case 'j':
+//      y=-0.8;
+//      move();
+//      break;
+//    case 'h':
+//      x=-0.8;
+//      move();
+//      break;
+//    case 'l':
+//      x=0.4;
+//       move();
+//      break;
   }
 
 }
 
-
+void substituteCordinates(){
+  int i,j;
+  for (i=0;i<4;i++){
+    for(j=0;j<4;j++){
+      x[i][j]=-0.8+(0.4*i);
+      y[i][j]=-0.8+(0.4*j);
+     printf("%f,%f\n",x[i][j],y[i][j]);
+    }
+  }
+}
 
 int main( int argc, char** argv )
 {
+  substituteCordinates();
   glutInit( &argc, argv );
   glutInitDisplayMode( GLUT_RGBA );
   glutInitWindowSize( 800, 800 );
