@@ -6,7 +6,7 @@
 double x,y;
 int map[3][3];
 double pr_x,pr_y;
-
+int elementNum=3;
 void frame( void )
 {
   //glClear( GL_COLOR_BUFFER_BIT );
@@ -65,23 +65,39 @@ void init( void )
 }
 
 void appearance(){
-  srand( (unsigned)time(NULL));
-  pr_x=-0.8+(0.4*( rand()%4) );
-  pr_y=-0.8+(0.4*( rand()%4) );
-  glClear( GL_COLOR_BUFFER_BIT );
-  glColor3f(0.87,0.8,0.01);
-  glBegin(GL_POLYGON);
-  glVertex2f(pr_x+0.01,pr_y+0.01);
-  glVertex2f(pr_x+0.39,pr_y+0.01);
-  glVertex2f(pr_x+0.39,pr_y+0.39);
-  glVertex2f(pr_x+0.01,pr_y+0.39);
-  glEnd();
- frame();
-  glFlush();
+  int i;
   
-}
+  glColor3f(0.87,0.8,0.01);
+  srand( (unsigned)time(NULL));
+  for(i=1;i<=elementNum;i++){
+    
+    pr_x=-0.8+(0.4*( rand()%4) );
+    pr_y=-0.8+(0.4*( rand()%4) );
+    printf("%f,%f\n",pr_x,pr_y);
+    glBegin(GL_POLYGON);
+    glVertex2f(pr_x+0.01,pr_y+0.01);
+    glVertex2f(pr_x+0.39,pr_y+0.01);
+    glVertex2f(pr_x+0.39,pr_y+0.39);
+    glVertex2f(pr_x+0.01,pr_y+0.39);
+    glEnd();
+    glFlush();
+  }
+
+  frame();
+  }
 
 void move(){
+glClear( GL_COLOR_BUFFER_BIT );
+  glColor3f(0.87,0.8,0.01);
+  glBegin(GL_POLYGON);
+  glVertex2f(x+0.01,y+0.01);
+  glVertex2f(x+0.39,y+0.01);
+  glVertex2f(x+0.39,y+0.39);
+  glVertex2f(x+0.01,y+0.39);
+  glEnd();
+  frame();
+  appearance();
+  glFlush();
 
 }
 
@@ -89,19 +105,19 @@ void keys(unsigned char key ,int dummy1,int dummy2){
   switch(key){
     case 'k':
       y=0.4;
-      appearance();
+      move();
       break;
     case 'j':
       y=-0.8;
-      appearance();
+      move();
       break;
     case 'h':
       x=-0.8;
-      appearance();
+      move();
       break;
     case 'l':
       x=0.4;
-       appearance();
+       move();
       break;
   }
 
@@ -111,16 +127,13 @@ void keys(unsigned char key ,int dummy1,int dummy2){
 
 int main( int argc, char** argv )
 {
-  
-  
   glutInit( &argc, argv );
   glutInitDisplayMode( GLUT_RGBA );
   glutInitWindowSize( 800, 800 );
   glutCreateWindow( argv[0] );
-  glutKeyboardFunc(keys);
-  
+  //glutKeyboardFunc(keys);
   glutDisplayFunc(appearance);
-  
+  //appearance();
   glutReshapeFunc( resize );
   init();
   glutMainLoop();
