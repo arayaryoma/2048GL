@@ -139,10 +139,23 @@ void keys(unsigned char key ,int dummy1,int dummy2){
       }
       break;
 
-      //    case 'j':
-      //      y=-0.8;
-      //      move();
-      //      break;
+    case 'j':
+      for(i=0;i<4;i++){
+        for(j=0;j<4;j++){
+          if(mapFlag[i][j]==1){
+            mapFlag[i][j]=0;
+            for(k=0;k<4;k++){
+              if(mapFlag[i][k]==0){
+                mapFlag[i][k]=1;
+                break;
+              }
+            }
+            //glutDisplayFunc(paint);
+            glutPostRedisplay();
+          }
+        }
+      }
+      break;   
     case 'h':
       for(i=0;i<4;i++){
         for(j=0;j<4;j++){
@@ -160,10 +173,23 @@ void keys(unsigned char key ,int dummy1,int dummy2){
         }
       }
       break;
-//    case 'l':
-//      x=0.4;
-//       move();
-//      break;
+    case 'l':
+      for(i=0;i<4;i++){
+        for(j=0;j<4;j++){
+          if(mapFlag[i][j]==1){
+            mapFlag[i][j]=0;
+            for(k=3;k>=0;k--){
+              if(mapFlag[k][j]==0){
+                mapFlag[k][j]=1;
+                break;
+              }
+            }
+            glutPostRedisplay();
+          }
+        }
+      }
+      break;
+
   }
 
 }
