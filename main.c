@@ -97,9 +97,14 @@ glClear( GL_COLOR_BUFFER_BIT );
 void appearance(){
   int i,j;
   srand( (unsigned)time(NULL));
-  pr_x=rand()%4;
-  pr_y=rand()%4;
-  mapFlag[pr_x][pr_y]=1;
+  do{
+    pr_x=rand()%4;
+    pr_y=rand()%4;
+    if(mapFlag[pr_x][pr_y]!=1){
+      mapFlag[pr_x][pr_y]=1;
+      break;
+    }
+  }while(1);
   paint();
 }
 
