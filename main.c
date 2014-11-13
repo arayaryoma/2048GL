@@ -13,10 +13,11 @@ void move();
 void keys(unsigned char key ,int dummy1,int dummy2);
 void substituteCordinates();
 
-int mapFlag[3][3];
+int mapFlag[4][4];
 double x[4][4],y[4][4];
 int pr_x,pr_y;
 int elementNum=3;
+
 void frame() {
   //glClear( GL_COLOR_BUFFER_BIT );
   glColor3f(255,255,255);
@@ -73,8 +74,8 @@ void init( void )
 
 void paint(){
   int i,j;
-  mapFlag[2][2]=1;
-  for(i=0;i<4;i++){
+glClear( GL_COLOR_BUFFER_BIT );
+  for(i=0;i<4;i++){ //全探索
     for(j=0;j<4;j++){
       if(mapFlag[i][j]==1){
         glColor3f(0.87,0.8,0.01);
@@ -86,7 +87,7 @@ void paint(){
         glEnd();
       }
       glFlush();
-        frame();
+      frame();
 
     }
   }
@@ -94,10 +95,11 @@ void paint(){
 
 
 void appearance(){
-  int i;
+  int i,j;
   srand( (unsigned)time(NULL));
   pr_x=rand()%4;
   pr_y=rand()%4;
+  mapFlag[pr_x][pr_y]=1;
   paint();
 }
 
@@ -117,6 +119,7 @@ glClear( GL_COLOR_BUFFER_BIT );
 }
 
 void keys(unsigned char key ,int dummy1,int dummy2){
+  int i,j;
   switch(key){
 //    case 'k':
 //      y=0.4;
@@ -126,10 +129,18 @@ void keys(unsigned char key ,int dummy1,int dummy2){
 //      y=-0.8;
 //      move();
 //      break;
-//    case 'h':
-//      x=-0.8;
-//      move();
-//      break;
+    case 'h':
+      for(i=0;i<4;i++){
+        for(j=0;j<4;j++){
+          if(mapFlag[i][j]==1){
+            mapFlag[i][j]=0;
+            mapFlag[0][j]=1; 
+            //glutDisplayFunc(paint);
+            glutPostRedisplay();
+          }
+        }
+      }
+      break;
 //    case 'l':
 //      x=0.4;
 //       move();
@@ -150,18 +161,18 @@ void substituteCordinates(){
 }
 
 
-int main( int argc, char** argv )
-{
+int main( int argc, char** argv ) {
+  int i,j;
   substituteCordinates();
   glutInit( &argc, argv );
   glutInitDisplayMode( GLUT_RGBA );
   glutInitWindowSize( 800, 800 );
   glutCreateWindow( argv[0] );
-  //glutKeyboardFunc(keys);
   glutDisplayFunc(appearance);
+  //glutDisplayFunc(paint);
+  glutKeyboardFunc(keys);
   // glutPostRedisplay();
   //appearance();
-  
   glutReshapeFunc( resize );
   init();
   glutMainLoop();
