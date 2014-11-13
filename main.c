@@ -5,7 +5,7 @@
 
 int mapFlag[3][3];
 double x[4][4],y[4][4];
-double pr_x,pr_y;
+int pr_x,pr_y;
 int elementNum=3;
 void frame( void )
 {
@@ -67,18 +67,18 @@ void appearance(){
   
   glColor3f(0.87,0.8,0.01);
   srand( (unsigned)time(NULL));
-  for(i=1;i<=elementNum;i++){
-    pr_x=-0.8+(0.4*( rand()%4) );
-    pr_y=-0.8+(0.4*( rand()%4) );
+    
+    pr_x=rand()%4;
+    pr_y=rand()%4;
     //printf("%f,%f\n",pr_x,pr_y);
     glBegin(GL_POLYGON);
-    glVertex2f(x[0][0]+0.01,y[0][3]+0.01);
-    glVertex2f(x[0][0]+0.39,y[0][3]+0.01);
-    glVertex2f(x[0][0]+0.39,y[0][3]+0.39);
-    glVertex2f(x[0][0]+0.01,y[0][3]+0.39);
+    glVertex2f(x[pr_x][pr_y]+0.01,y[pr_x][pr_y]+0.01);
+    glVertex2f(x[pr_x][pr_y]+0.39,y[pr_x][pr_y]+0.01);
+    glVertex2f(x[pr_x][pr_y]+0.39,y[pr_x][pr_y]+0.39);
+    glVertex2f(x[pr_x][pr_y]+0.01,y[pr_x][pr_y]+0.39);
     glEnd();
     glFlush();
-  }
+  
 
   frame();
   }
@@ -126,7 +126,7 @@ void substituteCordinates(){
     for(j=0;j<4;j++){
       x[i][j]=-0.8+(0.4*i);
       y[i][j]=-0.8+(0.4*j);
-     printf("%f,%f\n",x[i][j],y[i][j]);
+     //printf("%f,%f\n",x[i][j],y[i][j]);
     }
   }
 }
@@ -140,6 +140,7 @@ int main( int argc, char** argv )
   glutCreateWindow( argv[0] );
   //glutKeyboardFunc(keys);
   glutDisplayFunc(appearance);
+  // glutPostRedisplay();
   //appearance();
   glutReshapeFunc( resize );
   init();
