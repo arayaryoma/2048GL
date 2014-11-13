@@ -71,26 +71,35 @@ void init( void )
   glClearColor( 0.0, 0.0, 0.0, 1.0 );
 }
 
+void paint(){
+  int i,j;
+  mapFlag[2][2]=1;
+  for(i=0;i<4;i++){
+    for(j=0;j<4;j++){
+      if(mapFlag[i][j]==1){
+        glColor3f(0.87,0.8,0.01);
+        glBegin(GL_POLYGON);
+        glVertex2f(x[i][j]+0.01,y[i][j]+0.01);
+        glVertex2f(x[i][j]+0.39,y[i][j]+0.01);
+        glVertex2f(x[i][j]+0.39,y[i][j]+0.39);
+        glVertex2f(x[i][j]+0.01,y[i][j]+0.39);
+        glEnd();
+      }
+      glFlush();
+        frame();
+
+    }
+  }
+}
+
+
 void appearance(){
   int i;
-  
-  glColor3f(0.87,0.8,0.01);
   srand( (unsigned)time(NULL));
-    
-    pr_x=rand()%4;
-    pr_y=rand()%4;
-    //printf("%f,%f\n",pr_x,pr_y);
-    glBegin(GL_POLYGON);
-    glVertex2f(x[pr_x][pr_y]+0.01,y[pr_x][pr_y]+0.01);
-    glVertex2f(x[pr_x][pr_y]+0.39,y[pr_x][pr_y]+0.01);
-    glVertex2f(x[pr_x][pr_y]+0.39,y[pr_x][pr_y]+0.39);
-    glVertex2f(x[pr_x][pr_y]+0.01,y[pr_x][pr_y]+0.39);
-    glEnd();
-    glFlush();
-  
-  
-  frame();
-  }
+  pr_x=rand()%4;
+  pr_y=rand()%4;
+  paint();
+}
 
 void move(){
 glClear( GL_COLOR_BUFFER_BIT );
@@ -139,6 +148,7 @@ void substituteCordinates(){
     }
   }
 }
+
 
 int main( int argc, char** argv )
 {
