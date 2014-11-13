@@ -9,10 +9,9 @@ void frame();
 void resize();
 void init();
 void appearance();
-void move();
 void keys(unsigned char key ,int dummy1,int dummy2);
 void substituteCordinates();
-
+int magnitude[4][4];
 int mapFlag[4][4];
 double x[4][4],y[4][4];
 int pr_x,pr_y;
@@ -108,20 +107,6 @@ void appearance(){
   paint();
 }
 
-void move(){
-glClear( GL_COLOR_BUFFER_BIT );
-  glColor3f(0.87,0.8,0.01);
-  glBegin(GL_POLYGON);
-//  glVertex2f(x+0.01,y+0.01);
-//  glVertex2f(x+0.39,y+0.01);
-//  glVertex2f(x+0.39,y+0.39);
-//  glVertex2f(x+0.01,y+0.39);
-  glEnd();
-  frame();
-  appearance();
-  glFlush();
-
-}
 
 void keys(unsigned char key ,int dummy1,int dummy2){
   int i,j,k;
