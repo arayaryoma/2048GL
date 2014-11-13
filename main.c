@@ -121,14 +121,28 @@ glClear( GL_COLOR_BUFFER_BIT );
 void keys(unsigned char key ,int dummy1,int dummy2){
   int i,j,k;
   switch(key){
-//    case 'k':
-//      y=0.4;
-//      move();
-//      break;
-//    case 'j':
-//      y=-0.8;
-//      move();
-//      break;
+
+    case 'k':
+      for(i=0;i<4;i++){
+        for(j=3;j>=0;j--){
+          if(mapFlag[i][j]==1){
+            mapFlag[i][j]=0;
+            for(k=3;k>=0;k--){
+              if(mapFlag[i][k]==0){
+                mapFlag[i][k]=1;
+                break;
+              }
+            }
+            glutPostRedisplay();
+          }
+        }
+      }
+      break;
+
+      //    case 'j':
+      //      y=-0.8;
+      //      move();
+      //      break;
     case 'h':
       for(i=0;i<4;i++){
         for(j=0;j<4;j++){
@@ -139,7 +153,7 @@ void keys(unsigned char key ,int dummy1,int dummy2){
                 mapFlag[k][j]=1;
                 break;
               }
-              }
+            }
             //glutDisplayFunc(paint);
             glutPostRedisplay();
           }
