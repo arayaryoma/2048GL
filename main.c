@@ -3,8 +3,8 @@
 #include<time.h>
 #include<stdlib.h>
 
-double x,y;
-int map[3][3];
+int mapFlag[3][3];
+double x[3][3],y[3][3];
 double pr_x,pr_y;
 int elementNum=3;
 void frame( void )
@@ -52,10 +52,7 @@ void resize( int w, int h )
     y = y / x;
     x = x / x;
   }
-  gluOrtho2D(
-      -x, x,
-      -y, y
-      );
+  gluOrtho2D(-x,x,-y,y);
   
 }
 
@@ -70,7 +67,6 @@ void appearance(){
   glColor3f(0.87,0.8,0.01);
   srand( (unsigned)time(NULL));
   for(i=1;i<=elementNum;i++){
-    
     pr_x=-0.8+(0.4*( rand()%4) );
     pr_y=-0.8+(0.4*( rand()%4) );
     printf("%f,%f\n",pr_x,pr_y);
