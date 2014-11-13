@@ -119,7 +119,7 @@ glClear( GL_COLOR_BUFFER_BIT );
 }
 
 void keys(unsigned char key ,int dummy1,int dummy2){
-  int i,j;
+  int i,j,k;
   switch(key){
 //    case 'k':
 //      y=0.4;
@@ -134,7 +134,12 @@ void keys(unsigned char key ,int dummy1,int dummy2){
         for(j=0;j<4;j++){
           if(mapFlag[i][j]==1){
             mapFlag[i][j]=0;
-            mapFlag[0][j]=1; 
+            for(k=0;k<4;k++){
+              if(mapFlag[k][j]==0){
+                mapFlag[k][j]=1;
+                break;
+              }
+              }
             //glutDisplayFunc(paint);
             glutPostRedisplay();
           }
