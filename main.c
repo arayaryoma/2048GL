@@ -16,7 +16,7 @@ int mapFlag[4][4];
 double x[4][4],y[4][4];
 int pr_x,pr_y;
 int elementNum=3;
-
+int score=0;
 void frame() {
   //glClear( GL_COLOR_BUFFER_BIT );
   glColor3f(255,255,255);
@@ -142,6 +142,7 @@ void keys(unsigned char key ,int dummy1,int dummy2){
               if(magnitude[i][m]==magnitude[i][k]){ 
                 //上からみて一番近い数値が同じなら足し合わせる
                 magnitude[i][m]+=magnitude[i][k];
+                score+=magnitude[i][k];
                 magnitude[i][k]=mapFlag[i][k]=0;
                } 
               if(magnitude[i][k]==0) m++; //一個したが空きなら視点を動かさない
@@ -169,6 +170,7 @@ void keys(unsigned char key ,int dummy1,int dummy2){
               if(magnitude[i][m]==magnitude[i][k]){ 
                 //上からみて一番近い数値が同じなら足し合わせる
                 magnitude[i][m]+=magnitude[i][k];
+                score+=magnitude[i][k];
                 magnitude[i][k]=mapFlag[i][k]=0;
               } 
               if(magnitude[i][k]==0) m--; //一個上が空きなら視点を動かさない
@@ -196,6 +198,7 @@ void keys(unsigned char key ,int dummy1,int dummy2){
               if(magnitude[m][j]==magnitude[k][j]){ 
                 //上からみて一番近い数値が同じなら足し合わせる
                 magnitude[m][j]+=magnitude[k][j];
+                score+=magnitude[k][j];
                 magnitude[k][j]=mapFlag[k][j]=0;
               } 
               if(magnitude[k][j]==0) m--; //一個上が空きなら視点を動かさない
@@ -223,6 +226,7 @@ void keys(unsigned char key ,int dummy1,int dummy2){
               if(magnitude[m][j]==magnitude[k][j]){ 
                 //上からみて一番近い数値が同じなら足し合わせる
                 magnitude[m][j]+=magnitude[k][j];
+                score+=magnitude[k][j];
                 magnitude[k][j]=mapFlag[k][j]=0;
               } 
               if(magnitude[k][j]==0) m++; //一個上が空きなら視点を動かさない
@@ -232,9 +236,13 @@ void keys(unsigned char key ,int dummy1,int dummy2){
       }
       appearance();
       break;
+      
+ 
 
   }
-      puts("magnitude");
+  printf("\n\nscore=%d\n\n",score);
+ 
+  puts("magnitude");
       for(j=3;j>=0;j--){
         for(i=0;i<4;i++){
           printf("%4d",magnitude[i][j]);
