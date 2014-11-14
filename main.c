@@ -252,7 +252,7 @@ void keys(unsigned char key ,int dummy1,int dummy2){
       puts("\nFlag");
       for(j=3;j>=0;j--){
         for(i=0;i<4;i++){
-          printf("%d",mapFlag[i][j]);
+          printf("%3d",mapFlag[i][j]);
         }
         puts("");
       }
